@@ -50,8 +50,6 @@ $.widget("ui.boxer", $.ui.mouse, {
 
         }
 
-        console.debug("******** START ", this.startPosition);
-
         if (this.options.disabled)
             return;
 
