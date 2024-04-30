@@ -47,7 +47,6 @@ module Admin
     end
 
     def create
-      Rails.logger.debug("********** CRATE FIELD OPTION")
       FieldOption.transaction do
         begin
           #@field_Option is a variable containing an instance of the "FieldOption.rb" model created with data passed in the params of the "new.html.slim" form submit action.
