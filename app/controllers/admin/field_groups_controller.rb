@@ -172,7 +172,11 @@ module Admin
       @page_type = PageType.find params[:page_type_id]
       @field_group = FieldGroup.find params[:field_group_id]
 
-      ptfg = PageTypesFieldGroup.create!(page_type_id: params[:page_type_id], field_group_id: params[:field_group_id])
+      ptfg = PageTypesFieldGroup.create!(
+        page_type_id: params[:page_type_id],
+        field_group_id: params[:field_group_id],
+        sort_order: 0
+      )
       # raise ptfg.errors.full_messages.join("<br />") if ptfg.errors.any?
     rescue => ex
       Rails.logger.error ex.message

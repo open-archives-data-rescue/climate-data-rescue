@@ -31,18 +31,23 @@ Rails.application.config.action_mailer.tap do |action_mailer|
         address: ENV.fetch('SMTP_SERVER', 'localhost'),
         port: ENV.fetch("SMTP_PORT") { 25 },
         domain: ENV.fetch('SMTP_DOMAIN', nil),
+        openssl_verify_mode: 'none',
+        enable_starttls_auto: false,
+        tls: false
       }
 
       user_name = ENV.fetch('SMTP_USERNAME', nil)
-      action_mailer.smtp_settings[:user_name] if user_name
+      action_mailer.smtp_settings[:user_name] = user_name if user_name
       password = ENV.fetch('SMTP_PASSWORD', nil)
-      action_mailer.smtp_settings[:password] if password
+      action_mailer.smtp_settings[:password] = password if password
       authentication = ENV.fetch('SMTP_AUTHENTICATION', nil) # plain etc
-      action_mailer.smtp_settings[:authentication] if authentication
+      action_mailer.smtp_settings[:authentication] = authentication if authentication
       enable_starttls_auto = ENV.fetch('SMTP_SSL_START_AUTO', nil)
-      action_mailer.smtp_settings[:enable_starttls_auto] if enable_starttls_auto
+      action_mailer.smtp_settings[:enable_starttls_auto] = enable_starttls_auto if enable_starttls_auto
       openssl_verify_mode = ENV.fetch('SMTP_SSL_VERIFY_MODE', nil)
-      action_mailer.smtp_settings[:openssl_verify_mode] if openssl_verify_mode
+      action_mailer.smtp_settings[:openssl_verify_mode] = openssl_verify_mode if openssl_verify_mode
+      tls_mode = ENV.fetch('SMTP_TLS', nil)
+      action_mailer.smtp_settings[:tls] = tls_mode if tls_mode
     end
   end
 end
