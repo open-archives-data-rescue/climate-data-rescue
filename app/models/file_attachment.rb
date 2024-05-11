@@ -1,6 +1,14 @@
 module FileAttachment
 
   module ClassMethods
+    Paperclip.interpolates :avatar_file_name do |attachment, style|
+      attachment.instance.avatar_file_name
+    end
+
+    Paperclip.interpolates :image_file_name do |attachment, style|
+      attachment.instance.image_file_name
+    end
+
     # Page and User Avatar use the same pattern
     def page_url(args)
       if args[1].present?
@@ -35,6 +43,8 @@ module FileAttachment
       args
     end
 
+    # problem for /uploads/:class/:style/:image_file_name
+    # image_file_name is not found
     def attachment_url_str
       if isDraw?
         "/system/:attachment/:style/:hash.:extension"
