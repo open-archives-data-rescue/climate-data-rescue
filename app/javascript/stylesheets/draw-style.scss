@@ -48,13 +48,11 @@ a {
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
-    // TODO
-    background-image: url("~mcgill-background.jpg");
+    background-image: url("/images/mcgill-background.jpg");
     background-position: left center;
 
   &.holiday-special {
-    // TODO
-    background-image: url("~holiday-bg.jpg");
+    background-image: url("/images/holiday-bg.jpg");
     -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
     filter: grayscale(50%);
   }

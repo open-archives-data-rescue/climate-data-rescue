@@ -66,7 +66,7 @@
 
 <script>
 import { pageModel as model } from '@/store/page.store'
-import TableVue from '../components/table_vue';
+import TableVue from '../components/table_vue.vue';
 import { page_columns as columns } from './page_columns';
 import { DateTime } from 'luxon';
 

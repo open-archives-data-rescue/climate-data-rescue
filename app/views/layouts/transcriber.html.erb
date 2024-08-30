@@ -8,8 +8,8 @@
           <%= content_for?(:title) ? yield(:title) + " | " : '' %>
           <%= t('app.meta-info.title').html_safe %>
         </title>
-        <%# TODO: make sure these are ok? %>
         <%= csrf_meta_tags %>
+        <%= vite_client_tag %>
 
         <% if Rails.env.production? %>
           <!-- Global Site Tag (gtag.js) - Google Analytics -->
@@ -34,8 +34,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-        <%= javascript_pack_tag "application" %>
-        <%= stylesheet_pack_tag "application" %>
+        <%= vite_javascript_tag "application" %>
     </head>
     <body>
       <div class="container">

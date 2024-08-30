@@ -59,7 +59,7 @@
 
 <script>
 import { transcriptionModel as model } from '@/store/transcription.store'
-import TableVue from '../components/table_vue';
+import TableVue from '../components/table_vue.vue';
 import { transcription_columns as columns } from './transcription_columns';
 import { DateTime } from 'luxon';
 

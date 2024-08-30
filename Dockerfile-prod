@@ -2,7 +2,7 @@
 
 # Use ruby image to build our own image
 # TODO: change based when we change version of ruby
-FROM --platform=linux/x86_64 ruby:2.7.3-alpine as base
+FROM --platform=linux/x86_64 ruby:3.1.2-alpine as base
 
 # Ensure that we work in UTF 8
 ENV LANG C.UTF-8 # ensure that the encoding is UTF8
@@ -33,20 +33,19 @@ RUN apk add \
     && rm -rf /var/cache/apk/*
 
 # Install bundler for this Docker image
-# TODO: ensure that version of bundler matches what we want
-RUN gem install bundler:1.17.3
+RUN gem install bundler:2.3.26
 
 # WORKDIR /setup
 ADD . /opt/draw
 WORKDIR /opt/draw
 
 # Just not use dev here
+# TODO: we need to check this
 RUN bin/bundle install --without development
-RUN bin/yarn install --frozen-lockfile
+RUN bin/vite install
 
 # The pre-compile will be done as part of the deploy of the image
 # The precompile will also deal with the webpacker assets
-# RUN bin/rake assets:precompile --trace
 
 # We expose the port
 EXPOSE 3000

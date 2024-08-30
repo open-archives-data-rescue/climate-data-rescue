@@ -1,9 +1,9 @@
 <% if current_page?(root_url) || current_page?('/') || current_page?('/en') || current_page?('/fr') %>
 <% if ENV["DRAW_ENV"] == "DRAW" %>
 <div class="partners d-flex justify-content-center fixed-bottom pt-2 pb-2 mb-5">
-  <%= image_pack_tag("partners/McGill_logoT.gif", class: "w-25 mx-5" ) %>
-  <%= image_pack_tag("partners/Geothink_Logo_T2.jpg", class: "w-25 mx-5" ) %>
-  <%= image_pack_tag("partners/cirm.jpg", class: "w-25 mx-5" ) %>
+  <%= vite_image_tag("images/partners/McGill_logoT.gif", class: "w-25 mx-5" ) %>
+  <%= vite_image_tag("images/partners/Geothink_Logo_T2.jpg", class: "w-25 mx-5" ) %>
+  <%= vite_image_tag("images/partners/cirm.jpg", class: "w-25 mx-5" ) %>
 </div>
 <% end %>
 <% end %>

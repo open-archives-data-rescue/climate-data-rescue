@@ -25,7 +25,7 @@
               - if user.avatar.present?
                 td = link_to(image_tag(user.avatar.url(:thumb), :class => "center-block rounded-circle nav-user-photo", style: 'max-width:50px;'), user_path(user))
               - else
-                td = link_to(image_pack_tag('default-person.png', :class => "center-block rounded-circle nav-user-photo", style: 'max-width:50px;'), user_path(user))
+                td = link_to(vite_image_tag('images/default-person.png', :class => "center-block rounded-circle nav-user-photo", style: 'max-width:50px;'), user_path(user))
               td = user.display_name
               td = user.full_name
               td = link_to(user.email, "mailto:#{user.email}")

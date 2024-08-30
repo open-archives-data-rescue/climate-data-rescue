@@ -1,9 +1,9 @@
-<script type="text/javascript" id="transcriber-app">
+<script type="module" id="transcriber-app">
   var TranscriberApp = (function(Backbone, Marionette, Bowser) {
     var annotationInstructionsCookie = Cookies.get('hideAnnotationInstructions');
     var hideAnnotationInstructions = annotationInstructionsCookie == 'true';
 
-    var EventAggregator = new Backbone.Wreqr.EventAggregator();
+    // var EventAggregator = new Backbone.Wreqr.EventAggregator();
     var transcriberOffset = {left: 25, top: 250};
     var lastDate = null;
     var latestMsg = null;
@@ -246,7 +246,7 @@
         $btn.data('panel', 'open');
         $btn.html('<%= j t('transcriber.toolbar.hide-data') %>');
 
-        view = new DataTableView();
+        var view = new DataTableView();
         mainLayout.dataPanel.show(view);
       },
     });
@@ -377,7 +377,7 @@
             url : "/annotations/" + this.model.get('id') + "/edit.json",
             format: "json",
             success : function(annotation) {
-              transcriptionBox = new TranscriptionBox({
+              let transcriptionBox = new TranscriptionBox({
                 model : annotation
               });
 
@@ -803,14 +803,13 @@
               }
             );
           }
-
-          $field.select2(select2Config).trigger('change');
+          $(field).select2(select2Config).trigger('change');
         });
       },
 
       updateAnnotation : function(annotation) {
         var self = this;
-        $form = this.$("form");
+        let $form = this.$("form");
         $form.on("ajax:success", function(e, status, data, xhr) {
           self.destroy();
 
@@ -1064,7 +1063,7 @@
       enableBoxer : function() {
         var transcriber = this.options.transcriber;
 
-        fieldGroupName = this.options.fieldGroupName;
+        var fieldGroupName = this.options.fieldGroupName;
         $('.modal, .modal-backdrop').remove();
         $('body').removeClass("modal-open");
 

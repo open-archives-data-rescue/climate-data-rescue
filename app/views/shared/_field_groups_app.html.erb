@@ -1,6 +1,6 @@
-<script id="field-groups-app" type="text/javascript">
+<script id="field-groups-app" type="module">
 
-    FieldGroupsApp = new Marionette.Application();
+    var FieldGroupsApp = new Marionette.Application();
 
     FieldGroupsApp.addRegions({
         main : "#field-groups-app-container"
@@ -9,10 +9,10 @@
     FieldGroupsApp.AppManager = (function(Backbone, Marionette){
         var EventAggregator = new Backbone.Wreqr.EventAggregator();
 
-        PageType = Backbone.Model.extend({
+        var PageType = Backbone.Model.extend({
             url : "<%= admin_page_types_path %>",
         });
-        FieldGroup = Backbone.Model.extend({
+        var FieldGroup = Backbone.Model.extend({
             url : "<%= admin_field_groups_path %>",
             schema : {
                 internal_name : {
@@ -63,11 +63,11 @@
             paramRoot : "field_group"
         });
 
-        FieldGroupsCollection = Backbone.Collection.extend({
+        var FieldGroupsCollection = Backbone.Collection.extend({
             model : FieldGroup
         });
 
-        FieldGroupsLayout = Marionette.LayoutView.extend({
+        var FieldGroupsLayout = Marionette.LayoutView.extend({
             template : "#field-groups-layout-template",
             regions : {
                 assigned : "#assigned-field-groups-container",
@@ -110,7 +110,7 @@
             }
         });
 
-        FieldGroupView = Marionette.ItemView.extend({
+        var FieldGroupView = Marionette.ItemView.extend({
             // template : "#field-group-template",
             template: function(serialized_model) {
               var tmpl = $('#field-group-template');
@@ -208,7 +208,7 @@
         });
 
 
-        FieldGroupsCollectionView = Marionette.CompositeView.extend({
+        var FieldGroupsCollectionView = Marionette.CompositeView.extend({
             // template : "#field-groups-collection-template",
             template: function(serialized_model) {
               var tmpl = $('#field-groups-collection-template');
@@ -278,15 +278,15 @@
             }
         });
 
-        MainLayout = new FieldGroupsLayout();
+        var MainLayout = new FieldGroupsLayout();
 
-        AssignedFieldGroups = new FieldGroupsCollection({
+        var AssignedFieldGroups = new FieldGroupsCollection({
             url : "<%= admin_field_groups_for_page_type_path(page_type) %>",
             initialize : function() {
                 EventAggregator.on("refresh_field_groups", this.fetch, this);
             }
         });
-        AvailableFieldGroups = new FieldGroupsCollection({
+        var AvailableFieldGroups = new FieldGroupsCollection({
             url : "<%= admin_field_groups_path %>",
             initialize : function() {
                 EventAggregator.on("refresh_field_groups", this.fetch, this);
@@ -302,7 +302,7 @@
                     url : "<%= admin_field_groups_for_page_type_path(page_type) %>",
                     success : function(collection) {
                         // console.log(collection);
-                        view = new FieldGroupsCollectionView({
+                        var view = new FieldGroupsCollectionView({
                             collection : collection,
                             collectionTitle : "<h4>Assigned Field Groups</h4>",
                             initialize : function() {
@@ -316,7 +316,7 @@
                             sortable: true
                         });
                         MainLayout.assigned.show(view);
-                        EventAggregator.on("refresh_field_groups", this.fetch, this);
+                        EventAggregator.on("refresh_field_groups", AssignedFieldGroups.fetch, AssignedFieldGroups);
                     }
                 });
 
@@ -324,7 +324,7 @@
                     url : "<%= admin_field_groups_path(page_type_id: page_type.id) %>",
                     success : function(collection) {
                         // console.log(collection);
-                        view = new FieldGroupsCollectionView({
+                        var view = new FieldGroupsCollectionView({
                             collection : collection,
                             collectionTitle : "<h4>Available Field Groups</h4>",
                             initialize : function() {
@@ -337,7 +337,7 @@
                             })
                         });
                         MainLayout.available.show(view);
-                        EventAggregator.on("refresh_field_groups", this.fetch, this);
+                        EventAggregator.on("refresh_field_groups", AvailableFieldGroups.fetch, AvailableFieldGroups);
                     }
                 });
             }

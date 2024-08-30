@@ -30,8 +30,23 @@ $primary: $primary-color;
 @import 'blueimp-file-upload/css/jquery.fileupload-ui.css';
 
 //
-@import 'select2/dist/css/select2.css';
+// @import 'select2/dist/css/select2.css';
 // @import 'select2-bootstrap4-theme/dist/select2-bootstrap4.css';
-@import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
+// @import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
 
 @import './draw-style.scss';
+
+#toggle-completed-transcriptions {
+  margin-left: 10px;
+}
+
+.transcriptions-header {
+  .badge {
+    margin-left: 10px;
+  }
+}
+
+#transcription-ajax-target .table-responsive,
+#active-transcriptions-container .table-responsive {
+  max-height: 500px;
+}

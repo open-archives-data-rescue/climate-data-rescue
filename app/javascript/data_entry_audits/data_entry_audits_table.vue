@@ -19,7 +19,7 @@
 
 <script>
 import { dataEntryAuditModel as model } from '@/store/data_entry_audit.store'
-import TableVue from '../components/table_vue';
+import TableVue from '../components/table_vue.vue';
 import { data_entry_audit_columns as columns } from './data_entry_audit_columns';
 import { DateTime } from 'luxon';
 

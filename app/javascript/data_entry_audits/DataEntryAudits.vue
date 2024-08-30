@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DataEntryAuditsTable from './data_entry_audits_table'
+import DataEntryAuditsTable from './data_entry_audits_table.vue'
 // import UrlHelpers from '../mixins/UrlHelpers'
 
 export default {

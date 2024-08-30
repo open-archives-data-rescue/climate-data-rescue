@@ -71,7 +71,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
             - if current_user.avatar.present?
               = image_tag current_user.avatar.url(:thumb), class: "img-fluid rounded-circle nav-user-photo mr-2"
             - else
-              = image_pack_tag 'default-person.png', class: "img-fluid rounded-circle nav-user-photo mr-2"
+              = vite_image_tag 'images/default-person.png', class: "img-fluid rounded-circle nav-user-photo mr-2"
             = current_user.display_name
           div.dropdown-menu.multi-level.bg-dark
             = link_to t('my-profile'), my_profile_path, {class: "dropdown-item bg-dark #{yield(:profile)}"}

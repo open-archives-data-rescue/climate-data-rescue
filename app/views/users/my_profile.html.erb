@@ -1,0 +1,219 @@
+<% if @user.present?
+  provide(:user, "active")
+  provide(:profile, "active")
+  provide(:title, strip_tags(t('my-profile')))
+%>
+<div class="container">
+  <section class="boffset20" id="my-profile">
+    <div class="row">
+      <div class="col-xs-9 col-lg-10" id="my-profile-details">
+        <!--Show user information. Pulled dynamically from the user model instance-->
+        <h1><%= @user.display_name %></h1>
+        <p><strong><%= @user.email %></strong></p>
+        <p><%= pluralize(@user.transcriptions.count, strip_tags(t("transcription"))) %> <%= t('in-total').html_safe %></p>
+        <p><%= @user.bio %></p>
+        <!--if current user is admin or this is their user page, show full name-->
+        <% if @user == current_user || current_user.admin?%>
+          <p>
+            <strong><%= "#{User.human_attribute_name(:full_name)}: #{@user.full_name}" %></strong><br />
+            <span><%= "(#{t('simple_form.hints.user.edit.full_name')})" %></span>
+          </p>
+          <%= link_to t('edit'), edit_user_url(@user) %>
+        <% end %>
+      </div>
+      <div class="col-xs-3 col-lg-2" id="my-profile-photo">
+        <% if @user.avatar.present? %>
+          <%= image_tag @user.avatar.url(:medium), :class => "img-fluid rounded-circle" %>
+        <% else %>
+          <%= vite_image_tag "images/default-person.png", :class => "img-fluid rounded-circle" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+  <% if @user == current_user || (current_user && current_user.admin?) %>
+    <section id="my-certificate">
+      <div class="row">
+        <div class="col-md-12">
+          <h2><%= t('profile.certificate.heading') %></h2>
+          <p><%= t('profile.certificate.description') %></p>
+          <h3><%= t('profile.certificate.ccr.heading') %></h3>
+          <p><%= t('profile.certificate.ccr.introduction').html_safe %></p>
+          <ol class="boffset20">
+            <li><%= t('profile.certificate.ccr.step-1') %></li>
+            <li><%= t('profile.certificate.ccr.step-2') %></li>
+            <li><%= t('profile.certificate.ccr.step-3') %></li>
+          </ol>
+          <%= link_to t('profile.certificate.button-text'), my_certificate_path, class: "btn btn-sm btn-primary", target: 'my-certificate' %>
+        </div>
+      </div>
+    </section>
+    <section id="my-transcriptions">
+      <div class="row voffset20">
+        <div class="col-md-12">
+          <h2 class="transcriptions-header boffset10">
+            <%= t('my-active-transcriptions') %>
+            <% if @active_transcriptions.any?%>
+              <span class="badge"><%= @active_transcriptions.size %></span
+            ><% end %>
+          </h2>
+        </div>
+      </div>
+      <div class="row voffset20">
+        <div class="col-md-12">
+          <% if @active_transcriptions.any?%>
+            <%= link_to t('transcribe-random-page'), new_transcription_path, class: "btn btn-sm btn-draw-accented" %>
+            <div class="voffset20" id="active-transcriptions-container">
+              <%= render 'transcriptions/transcriptions_table', transcriptions: @active_transcriptions %>
+            </div>
+         <% else %>
+           <p><%= t('transcriptions.active', count: 0) %></p>
+         <% end %></div>
+       </div>
+        <div class="row voffset20">
+          <div class="col-md-12">
+            <h2 class="transcriptions-header">
+              <%= t('my-completed-transcriptions') %>
+              <% if @completed_transcriptions_size > 0%>
+                <span class="badge"><%= @completed_transcriptions_size %></span>
+              <% end %>
+              <button aria-controls="completed-transcriptions-container"
+                aria-expanded="false"
+                class="btn btn-primary"
+                data-target="#completed-transcriptions-container"
+                data-toggle="collapse"
+                id="toggle-completed-transcriptions"
+                title="<%= t('toggle-completed-transcriptions') %>"
+              >
+                <i class="fa fa-caret-down"></i>
+              </button>
+            </h2>
+          </div>
+        </div>
+        <div class="row voffset20">
+          <div class="col-md-12">
+            <div class="collapse" id="completed-transcriptions-container">
+              <% if @completed_transcriptions_size > 0 %>
+                <nav class="transcription-paginator" aria-label="...">
+                  <ul class="pagination">
+                    <% if @num_pages_completed_transcriptions > 1 %>
+                      <li data-page="first"><a data-page="first" href="#p-first">&laquo;</a></li>
+                    <% end; %>
+                    <% (0..@num_pages_completed_transcriptions).each_with_index do |p, index| p = p + 1 %>
+                      <% if index == 0 %>
+                        <li  class="real-page active" data-page="<%= p %>">
+                          <a data-page="<%= p %>" href="#p-<%= p %>"><%= p %></a>
+                        </li>
+                      <% else %>
+                        <li class="real-page" data-page="<%= p %>">
+                          <a data-page="<%= p %>" href="#p-<%= p %>"><%= p %></a>
+                        </li>
+                      <% end %>%
+                    <% end%>
+                    <% if @num_pages_completed_transcriptions > 1 %>
+                      <li data-page="last"><a data-page="last" href="#p-last">&raquo;</a></li>
+                    <% end %>
+                  </ul>
+                </nav>
+                <div id="transcription-ajax-target"><i class="fa fa-refresh fa-spin fa-3x"></i></div>
+                <nav class="transcription-paginator" aria-label="...">
+                  <ul class="pagination">
+                    <% if @num_pages_completed_transcriptions > 1 %>
+                      <li data-page="first"><a data-page="first" href="#p-first">&laquo;</a></li>
+                    <% end %>
+                    <% (0..@num_pages_completed_transcriptions).each_with_index do |p, index| p = p + 1 %>
+                    <% if index == 0 %>
+                      <li class="real-page active" data-page="<%= p %>">
+                        <a data-page="<%= p %>" href="#p-<%= p %>"><%= p %></a>
+                      </li>
+                    <% else %>
+                      <li class="real-page" data-page="<%= p %>">
+                        <a data-page="<%= p %>" href="#p-<%= p %>"><%= p %></a>
+                      </li>
+                      <% end %>
+                    <% end %>
+                    <%if @num_pages_completed_transcriptions > 1 %>
+                      <li data-page="last"><a data-page="last" href="#p-last">&raquo;</a></li>
+                    <% end %>
+                  </ul>
+                </nav>
+              <% else %>
+                <p><%= t('transcriptions.completed', count: 0) %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row voffset20">
+          <div class="col-md-12">
+            <%= link_to t('view-list-of-pages-to-transcribe'), public_pages_index_path, class: "btn btn-primary" %>
+          </div>
+        </div>
+    </section>
+</div>
+<% end %>
+
+<script type="module">
+  $(document).ready(function () {
+    var currentPage = 1;
+    var perPage = 20;
+    $('#toggle-completed-transcriptions').tooltip();
+    $('#completed-transcriptions-container').on('hide.bs.collapse', function () {
+      $('#toggle-completed-transcriptions > i').removeClass('fa-caret-up').addClass('fa-caret-down');
+    }).on('show.bs.collapse', function () {
+      $('#toggle-completed-transcriptions > i').removeClass('fa-caret-down').addClass('fa-caret-up');
+      loadTranscriptions();
+    });
+
+    $('.transcription-paginator li a').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var page = $(e.target).data('page');
+      if ($(e.target).hasClass('active')) { return; }
+
+      if (page == 'first') {
+        var $current = $('.transcription-paginator li[data-page=' + page + ']');
+        $current.siblings().removeClass('active');
+        $current.siblings('.real-page').first().addClass('active');
+        setCurrentPage(1);
+      } else if (page == 'last') {
+        var $current = $('.transcription-paginator li[data-page=' + page + ']');
+        $current.siblings().removeClass('active');
+        var $last = $current.siblings('.real-page').last();
+        $last.addClass('active');
+        setCurrentPage($last.data('page'));
+      } else {
+        setPaginationActiveState(page);
+      }
+    });
+
+    function setPaginationActiveState(page) {
+      var current = $('.transcription-paginator li[data-page=' + page + ']');
+      current.siblings().removeClass('active');
+      current.addClass('active');
+      setCurrentPage(page)
+    }
+
+    function setCurrentPage(page) {
+      currentPage = page;
+      loadTranscriptions();
+    }
+
+    function loadTranscriptions() {
+      $('#transcription-ajax-target').html('<i class="fa fa-refresh fa-spin fa-3x"></i>');
+      $.ajax({
+        url: "<%= completed_transcriptions_user_path(@user) %>",
+        data: {
+          page: currentPage,
+          per_page: perPage
+        }
+      }).done(function(data) {
+        $('#transcription-ajax-target').html(data);
+      })
+      .fail(function(xhr) {
+        $('#transcription-ajax-target').html("Could not load completed transcriptions. Please try again, or report this to the DRAW administrators if the problem persists.");
+      });
+    }
+  });
+</script>
+
+<% end %>

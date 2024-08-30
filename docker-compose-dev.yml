@@ -101,7 +101,7 @@ services:
   # Used for sidekiq for jobs
   redis:
     image: redis:alpine
-    restart: always
+    # restart: always
     volumes:
       - draw-redis-data:/data
     ports:
@@ -123,7 +123,7 @@ services:
   mailcatcher:
     image: schickling/mailcatcher
     entrypoint: "mailcatcher -f --ip 0.0.0.0"
-    restart: always
+    # restart: always
     ports:
       - 10025:1025
       - 1080:1080

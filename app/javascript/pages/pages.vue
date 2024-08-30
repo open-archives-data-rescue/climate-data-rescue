@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <b-container fluid>
@@ -17,7 +16,7 @@
 </template>
 
 <script>
-import PagesTable from './pages_table'
+import PagesTable from './pages_table.vue'
 import UrlHelpers from '../mixins/UrlHelpers'
 
 export default {

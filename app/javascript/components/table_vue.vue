@@ -61,8 +61,8 @@
           @row-selected="onRowSelected"
           @sort-changed="onSortChanged"
         >
-          <slot v-for="(_, name) in $slots" :name="name" :slot="name" />
-          <template v-for="(_, name) in $scopedSlots" :slot="name" slot-scope="slotData">
+          <slot v-for="(_, name) in $slots" :name="name" />
+          <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
             <slot :name="name" v-bind="slotData" />
           </template>
         </b-table>
@@ -100,7 +100,7 @@
 <script>
 import modelMixin from '../store/model.mixin';
 import tableMixin from '../store/table.mixin';
-import SearchVue from './search_vue'
+import SearchVue from './search_vue.vue'
 
 
 export default {
@@ -170,7 +170,7 @@ export default {
   }
 
   .vue-table {
-    /deep/ th {
+    ::v-deep th {
       vertical-align: top;
 
       &.selected {
@@ -194,7 +194,7 @@ export default {
       }
     }
 
-    /deep/ td {
+    ::v-deep td {
 
       &.number {
         text-align: right;
@@ -234,7 +234,7 @@ export default {
       text-align: right;
       text-align-last: right;
 
-      /deep/ option {
+      ::v-deep option {
         direction: rtl;
       }
     }

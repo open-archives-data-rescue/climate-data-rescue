@@ -28,8 +28,7 @@ html lang="en"
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/v4-shims.css">
 
-    = javascript_pack_tag "application"
-    = stylesheet_pack_tag "application"
+    = vite_javascript_tag "application"
 
     - if content_for(:head)
       = yield(:head)

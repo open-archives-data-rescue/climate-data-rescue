@@ -89,7 +89,7 @@
   </div>
 <% end %>
 
-<script type="text/javascript">
+<script type="module">
     $(document).ready(function() {
         var editorIsEnabled = false;
 
@@ -98,7 +98,7 @@
             $('#page-content').trumbowyg({
                 removeformatPasted: true,
                 autogrow: true,
-                svgPath: '<%= asset_pack_path("media/ui/icons.svg")%>',
+                svgPath: trumbowygSvgIcons,
                 semantic: false
             }).on("tbwinit", function() {
                 editorIsEnabled = true;
@@ -113,7 +113,7 @@
               $('#page-content').trumbowyg({
                   removeformatPasted: true,
                   autogrow: true,
-                  svgPath: '<%= asset_pack_path("media/ui/icons.svg")%>',
+                  svgPath: trumbowygSvgIcons,
                   semantic: false
               }).on("tbwinit", function() {
                 editorIsEnabled = true;

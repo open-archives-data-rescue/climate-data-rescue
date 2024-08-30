@@ -9,24 +9,24 @@
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // Node/CommonJS
-    module.exports = function (root, jQuery) {
-      if (jQuery === undefined) {
-        // require('jQuery') returns a factory that requires window to
-        // build a jQuery instance, we normalize how we use modules
-        // that require this pattern but the window provided is a noop
-        // if it's defined (how jquery works)
-        if (typeof window !== 'undefined') {
-          jQuery = require('jquery');
-        }
-        else {
-          jQuery = require('jquery')(root);
-        }
-      }
-      factory(jQuery);
-      return jQuery;
-    };
+  // } else if (typeof module === 'object' && module.exports) {
+  //   // Node/CommonJS
+  //   module.exports = function (root, jQuery) {
+  //     if (jQuery === undefined) {
+  //       // require('jQuery') returns a factory that requires window to
+  //       // build a jQuery instance, we normalize how we use modules
+  //       // that require this pattern but the window provided is a noop
+  //       // if it's defined (how jquery works)
+  //       if (typeof window !== 'undefined') {
+  //         jQuery = require('jquery');
+  //       }
+  //       else {
+  //         jQuery = require('jquery')(root);
+  //       }
+  //     }
+  //     factory(jQuery);
+  //     return jQuery;
+  //   };
   } else {
     // Browser globals
     factory(jQuery);
@@ -2071,7 +2071,7 @@ S2.define('select2/selection/search',[
     this.$search = $search.find('textarea');
 
     this.$search.prop('autocomplete', this.options.get('autocomplete'));
-    this.$search.attr('aria-label', searchLabel());
+    // this.$search.attr('aria-label', searchLabel());
 
     var $rendered = decorated.call(this);
 
@@ -4208,7 +4208,7 @@ S2.define('select2/dropdown/search',[
     this.$search = $search.find('input');
 
     this.$search.prop('autocomplete', this.options.get('autocomplete'));
-    this.$search.attr('aria-label', searchLabel());
+    // this.$search.attr('aria-label', searchLabel());
 
     $rendered.prepend($search);
 

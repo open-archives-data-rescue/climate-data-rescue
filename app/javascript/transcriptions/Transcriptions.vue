@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import TranscriptionsTable from './transcriptions_table'
+import TranscriptionsTable from './transcriptions_table.vue'
 import UrlHelpers from '../mixins/UrlHelpers'
 
 export default {

@@ -2,7 +2,7 @@
 
 # Use ruby image to build our own image
 # TODO: change based when we change version of ruby
-FROM --platform=linux/x86_64 ruby:2.7.3-alpine as base
+FROM --platform=linux/x86_64 ruby:3.1.2-alpine as base
 
 # Ensure that we work in UTF 8
 ENV LANG C.UTF-8 # ensure that the encoding is UTF8
@@ -34,9 +34,7 @@ RUN apk add \
     && rm -rf /var/cache/apk/*
 
 # Install bundler for this Docker image
-# RUN gem install bundler:2.2.4
-# TODO: ensure that version of bundler matches what we want
-RUN gem install bundler:1.17.3
+RUN gem install bundler:2.3.26
 
 # pre-install bundle for speed later
 ADD ./Gemfile /opt/draw/Gemfile

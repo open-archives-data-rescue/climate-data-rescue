@@ -8,7 +8,7 @@ Rails.application.config.action_mailer.tap do |action_mailer|
     action_mailer.default_url_options = { host: "localhost" }
   elsif Rails.env.development?
     action_mailer.tap do |action_mailer|
-      action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+      action_mailer.default_url_options = { host: 'localhost', port: 5200 }
       action_mailer.delivery_method = :smtp
       action_mailer.perform_deliveries = true
       action_mailer.raise_delivery_errors = true
