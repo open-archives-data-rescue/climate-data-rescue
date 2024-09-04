@@ -197,12 +197,20 @@
 
         var zoom = (percent ? (value / 100) : value);
         if (zoom > 0.1) {
-          this.zoomContainer.find(".annotated_page").css({
-            zoom : zoom,
-            // handle zoom css for firefox
-            '-moz-transform' : ('scale(' + zoom + ')'),
-            '-moz-transform-origin' : 'left top'
-          });
+          const browser = Bowser.getParser(window.navigator.userAgent);
+          // console.debug("****** browser IS", browser.getEngineName());
+          if (browser.getEngineName() == 'Gecko') {
+            // If the agent is FF then we need to use the moz-transform
+            //  AND not put in the zoom
+            this.zoomContainer.find(".annotated_page").css({
+              '-moz-transform' : ('scale(' + zoom + ')'),
+              '-moz-transform-origin' : 'top left'
+            });
+          } else {
+            this.zoomContainer.find(".annotated_page").css({
+              zoom : zoom
+            });
+          }
           this.currentZoom = zoom;
           this.updateZoomLevel();
 
