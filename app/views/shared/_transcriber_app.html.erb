@@ -201,7 +201,7 @@
           // console.debug("****** browser IS", browser.getEngineName());
           if (browser.getEngineName() == 'Gecko') {
             // If the agent is FF then we need to use the moz-transform
-            //  AND not put in the zoom
+            // AND not put in the zoom
             this.zoomContainer.find(".annotated_page").css({
               '-moz-transform' : ('scale(' + zoom + ')'),
               '-moz-transform-origin' : 'top left'
@@ -432,18 +432,8 @@
             stop : function(e, ui) {
               var offset = $box.offset();
 
-              let x = 0;
-              let y = 0;
-              const browser = Bowser.getParser(window.navigator.userAgent);
-              if (browser.getEngineName() == 'Blink') {
-                x = offset.left - $(document).scrollLeft() - $("#target-image").offset().left;
-                y = offset.top - $(document).scrollTop() - $("#target-image").offset().top;
-              } else {
-                x = (offset.left - $(document).scrollLeft() - $("#target-image").offset().left) / toolbarLayout.currentZoom;
-                y = (offset.top - $(document).scrollTop() - $("#target-image").offset().top) / toolbarLayout.currentZoom;
-              }
-
-
+              let x = (offset.left - $(document).scrollLeft() - $("#target-image").offset().left) / toolbarLayout.currentZoom;
+              let y = (offset.top - $(document).scrollTop() - $("#target-image").offset().top) / toolbarLayout.currentZoom;
               var width = $box.width();
               var height = $box.height();
 
@@ -505,29 +495,12 @@
                 }
               });
             },
-            start: function( event, ui ) {
-              const browser = Bowser.getParser(window.navigator.userAgent);
-              if (browser.getEngineName() == 'Blink') {
-                var x = $box.position().left; // - ($(document).scrollLeft() + $("#target-image").offset().left);
-                var y = $box.position().top - ($(document).scrollTop() + $("#target-image").offset().top);
-                ui.position = { left: x, top: y};
-              }
-            },
             drag: function( event, ui ) {
-              var zoom = toolbarLayout.currentZoom; //getComputedStyle(this).zoom;
-              const browser = Bowser.getParser(window.navigator.userAgent);
-              if (browser.getEngineName() == 'Blink') {
-                var x = ui.offset.left - $(document).scrollLeft() - $("#target-image").offset().left; // / zoom; // / zoom;
-                var y = ui.offset.top - $(document).scrollTop() - $("#target-image").offset().top; // / zoom; // / zoom;
-
-                ui.position.left = x;
-                ui.position.top = y;
-              } else {
-                var x = ui.position.left / zoom;
-                var y = ui.position.top / zoom;
-                ui.position.left = x;
-                ui.position.top = y;
-              }
+              var zoom = toolbarLayout.currentZoom;
+              var x = ui.position.left / zoom;
+              var y = ui.position.top / zoom;
+              ui.position.left = x;
+              ui.position.top = y;
             },
             stop : function(e, ui) {
               var zoom = toolbarLayout.currentZoom;
