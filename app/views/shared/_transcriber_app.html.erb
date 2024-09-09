@@ -409,7 +409,6 @@
                 e.preventDefault();
                 if( e.which === 27 || e.keyCode === 27 ){
                   $box.find(".annotation-actions").show();
-                  $box.resizable("destroy");
                   pageCanvas.enableScrolling();
                   $(document).off("keyup.draw.resize");
                   self.clearMsg();
@@ -418,10 +417,9 @@
               });
               $(document).on("click.draw.resize", function(e) {
                 e.preventDefault();
-                thing = $(e.target).closest('.annotation-marker').first().attr('id');
+                var thing = $(e.target).closest('.annotation-marker').first().attr('id');
                 if (thing != self.el.id) {
                   $box.find(".annotation-actions").show();
-                  $box.resizable("destroy");
                   pageCanvas.enableScrolling();
                   $(document).off("keyup.draw.resize");
                   self.clearMsg();
@@ -484,7 +482,7 @@
               });
               $(document).on("click.draw.move", function(e) {
                 e.preventDefault();
-                thing = $(e.target).closest('.annotation-marker').first().attr('id');
+                var thing = $(e.target).closest('.annotation-marker').first().attr('id');
                 if (thing != self.el.id) {
                   $box.find(".annotation-actions").show();
                   $box.draggable("destroy");
@@ -1050,7 +1048,6 @@
 
         // TODO
         setMsg(('<%= j t('transcriber.messages.draw-annotation-box-instructions-with-field-group').html_safe %>').replace('%{field_group}', fieldGroupName), false, "info");
-
         var annotation = new Annotation(this.options.data);
 
         pageCanvas.disableScrolling();
