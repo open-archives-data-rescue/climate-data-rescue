@@ -33,22 +33,10 @@ $.widget("ui.boxer", $.ui.mouse, {
 
         var offset = $(target).offset();
 
-        const browser = Bowser.getParser(window.navigator.userAgent);
-        if (browser.getEngineName() == 'Blink') {
-          // This works for Chrome, problem with zoonm down though
-          this.startPosition = {
-            x: (event.pageX / this.zoomLevel) - $(document).scrollLeft() - offset.left,
-            y: (event.pageY / this.zoomLevel) - $(document).scrollTop() - offset.top
-          };
-
-        } else {
-          // This works for FF !!
-          this.startPosition = {
-            x: (event.pageX - $(document).scrollLeft() - offset.left) / this.zoomLevel,
-            y: (event.pageY - $(document).scrollTop() - offset.top) / this.zoomLevel
-          };
-
-        }
+        this.startPosition = {
+          x: (event.pageX - $(document).scrollLeft() - offset.left) / this.zoomLevel,
+          y: (event.pageY - $(document).scrollTop() - offset.top) / this.zoomLevel
+        };
 
         if (this.options.disabled)
             return;
@@ -95,14 +83,8 @@ $.widget("ui.boxer", $.ui.mouse, {
 
         let x = 0;
         let y = 0;
-        const browser = Bowser.getParser(window.navigator.userAgent);
-        if (browser.getEngineName() == 'Blink') {
-          x = (pageX / this.zoomLevel) - $(document).scrollLeft() - $(target).offset().left;
-          y = (pageY / this.zoomLevel) - $(document).scrollTop() - $(target).offset().top;
-        } else {
-          x = (pageX - $(document).scrollLeft() - $(target).offset().left) / this.zoomLevel;
-          y = (pageY - $(document).scrollTop() - $(target).offset().top) / this.zoomLevel;
-        }
+        x = (pageX - $(document).scrollLeft() - $(target).offset().left) / this.zoomLevel;
+        y = (pageY - $(document).scrollTop() - $(target).offset().top) / this.zoomLevel;
 
         var x1 = this.startPosition.x, y1 = this.startPosition.y, x2 = x, y2 = y;
 
