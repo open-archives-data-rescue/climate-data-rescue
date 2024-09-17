@@ -384,7 +384,7 @@
   border: 1px solid hsla(0, 100%, 0%, 0.3);
   background: hsla(268, 100%, 68%, 0.3);
   z-index: 80;
-  position: absolute;
+  position: absolute !important;
   cursor: default;
 
   &.helper {
