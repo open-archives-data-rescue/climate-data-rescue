@@ -26,7 +26,7 @@
     "jquery-ui-dist": "^1.13.2",
     "jquery-ujs": "^1.2.3",
     "jquery.kinetic": "^2.2.4",
-    "jsonapi-vuex": "^5.10.0",
+    "jsonapi-vuex": "5.13.1",
     "lodash": "^4.17.21",
     "lodash.merge": "^4.6.2",
     "luxon": "^3.1.0",
@@ -47,7 +47,7 @@
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.45",
     "@vue/runtime-dom": "^3.2.47",
-    "vite": "^4.5.3",
+    "vite": "^4.5.5",
     "vite-plugin-full-reload": "^1.0.5",
     "vite-plugin-ruby": "^3.2.2"
   }
