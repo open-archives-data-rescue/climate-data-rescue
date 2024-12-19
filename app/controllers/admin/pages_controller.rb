@@ -43,7 +43,7 @@ module Admin
       upload = params[:page][:image]
       Rails.logger.debug upload unless Rails.env.production?
 
-      image = upload.is_a?(Array) ? upload[0] : upload
+      image = upload.is_a?(Array) ? upload.reject { |c| c == "" }[0] : upload
       page = nil
 
       filename = filename_sans_suffix(image: image)

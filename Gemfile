@@ -83,7 +83,7 @@ group :development do
   gem 'rb-readline'
   gem 'rubocop'
   gem 'rack-mini-profiler'
-  gem 'rbtrace'
+  # gem 'rbtrace'
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console'
