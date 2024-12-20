@@ -1,5 +1,7 @@
 # Responsible for returning a collection of items
 # Results can be sorted, filtered, and paginated
+require 'ostruct'
+
 class BaseQuery
   attr_reader :total, :collection
 
