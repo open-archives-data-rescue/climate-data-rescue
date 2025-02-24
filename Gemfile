@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.2"
 
 gem "rails", "~> 7.0.4"
+gem 'concurrent-ruby', '1.3.4'
 
 gem 'mysql2'
 
@@ -49,7 +50,7 @@ gem 'i18n-active_record', :require => 'i18n/active_record'
 
 gem 'rails-observers'
 
-gem 'friendly_id', '~> 5.4.2'
+# gem 'friendly_id', '~> 5.4.2'
 # gem 'mobility', '~> 1.0.3'
 # gem 'friendly_id-mobility', '~> 1.0.3'
 
