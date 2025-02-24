@@ -18,7 +18,6 @@ describe StaticPage do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:slug) }
     it { is_expected.to validate_presence_of(:body) }
-    it { is_expected.to validate_uniqueness_of(:foreign_link).ignoring_case_sensitivity.allow_blank }
   end
 
   describe 'callbacks' do
@@ -43,33 +42,9 @@ describe StaticPage do
     end
   end
 
-  describe '#is_external?' do
-    context 'when foreign_link is set' do
-      it do
-        static_page.foreign_link = Faker::Internet.url
-        expect(static_page.is_external?).to be_truthy
-      end
-    end
-    context 'when foreign_link is not set' do
-      it do
-        static_page.foreign_link = nil
-        expect(static_page.is_external?).to be_falsy
-      end
-    end
-  end
-
   describe '#link' do
-    context 'when foreign_link is set' do
-      it do
-        static_page.foreign_link = Faker::Internet.url
-        expect(static_page.link).to eq(static_page.foreign_link)
-      end
-    end
-    context 'when foreign_link is not set' do
-      it do
-        static_page.foreign_link = nil
-        expect(static_page.link).to eq("/#{I18n.locale}#{static_page.slug}")
-      end
+    it do
+      expect(static_page.link).to eq("/#{I18n.locale}#{static_page.slug}")
     end
   end
 

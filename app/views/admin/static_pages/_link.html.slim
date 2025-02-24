@@ -1,7 +1,7 @@
 
 - if @page.present? && @page == page
   li.active
-    = link_to page.title, page.link, target: (page.is_external? ? "_blank" : "_self"), name: CGI.escape(page.title.downcase)
+    = link_to page.title, page.link, target: "_self", name: CGI.escape(page.title.downcase)
 - else
   li
-    = link_to page.title, page.link, target: (page.is_external? ? "_blank" : "_self"), name: CGI.escape(page.title.downcase)
+    = link_to page.title, page.link, target: "_self", name: CGI.escape(page.title.downcase)

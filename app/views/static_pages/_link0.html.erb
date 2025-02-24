@@ -16,7 +16,7 @@
                      page.link,
                      {
                        class: "dropdown-item #{(@page && @page == page)? 'active' : ''}",
-                       target: page.is_external? || opens_new_tab ? "_blank" : "_self",
+                       target: opens_new_tab ? "_blank" : "_self",
                        name: CGI.escape(page.title.downcase)
                      }
                    )

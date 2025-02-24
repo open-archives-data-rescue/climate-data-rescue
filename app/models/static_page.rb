@@ -9,9 +9,8 @@ class StaticPage < ApplicationRecord
   default_scope { order(position: :asc) }
 
   validates :title, presence: true
-  validates :slug, :body, presence: true, if: :not_using_foreign_link?
-  validates :slug, uniqueness: true, if: :not_using_foreign_link?
-  validates :foreign_link, uniqueness: true, allow_blank: true
+  validates :slug, :body, presence: true
+  validates :slug, uniqueness: true
 
   scope :visible, -> { where(visible: true) }
   scope :top_level, -> { where(parent_id: nil) }
@@ -49,18 +48,14 @@ class StaticPage < ApplicationRecord
   end
 
   def link
-    foreign_link.blank? ? "/#{I18n.locale}#{slug}" : foreign_link
-  end
-
-  def is_external?
-    foreign_link.present?
+    "/#{I18n.locale}#{slug}"
   end
 
   private
 
   def update_positions_and_slug
     # Ensure that all slugs start with a slash.
-    slug.prepend('/') if not_using_foreign_link? && !slug.start_with?('/')
+    slug.prepend('/') if !slug.start_with?('/')
     return if new_record?
     return unless (prev_position = StaticPage.find(id).position)
     if prev_position > position
@@ -68,9 +63,5 @@ class StaticPage < ApplicationRecord
     elsif prev_position < position
       StaticPage.where('? < position and position <= ?', prev_position, position).update_all('position = position - 1')
     end
-  end
-
-  def not_using_foreign_link?
-    foreign_link.blank?
   end
 end

@@ -3,7 +3,7 @@
 - header = header || false
 - nav_class =  'nav-item'
 - opens_new_tab = opens_new_tab || false
-- link_opts = { class: 'nav-link', target: (page.is_external? || opens_new_tab ? "_blank" : "_self"), name: CGI.escape(title.downcase) }
+- link_opts = { class: 'nav-link', target: (opens_new_tab ? "_blank" : "_self"), name: CGI.escape(title.downcase) }
 - if @page == page
   - nav_class += ' active'
 - if page && page.children.any?

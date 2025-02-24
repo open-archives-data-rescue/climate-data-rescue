@@ -624,7 +624,6 @@ CREATE TABLE `static_pages` (
   `show_in_header` tinyint(1) NOT NULL DEFAULT '0',
   `show_in_footer` tinyint(1) NOT NULL DEFAULT '0',
   `visible` tinyint(1) NOT NULL DEFAULT '1',
-  `foreign_link` varchar(255) DEFAULT NULL,
   `position` int(11) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -846,6 +845,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20230227192645'),
 ('20230305154341'),
 ('20230316214752'),
-('20250224161953');
+('20250224161953'),
+('20250224180604');
 
 

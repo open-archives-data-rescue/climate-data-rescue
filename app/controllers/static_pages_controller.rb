@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
 
   private
   def static_page_params
-    params.require(:static_page).permit(:title, :body, :slug, :show_in_header, :show_in_footer, :show_in_transcriber, :visible, :foreign_link, :position, :meta_keywords, :meta_title, :meta_description, :title_as_header)
+    params.require(:static_page).permit(:title, :body, :slug, :show_in_header, :show_in_footer, :show_in_transcriber, :visible, :position, :meta_keywords, :meta_title, :meta_description, :title_as_header)
   end
 
   def accurate_title
