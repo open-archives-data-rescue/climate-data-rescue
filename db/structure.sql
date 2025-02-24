@@ -89,17 +89,6 @@ CREATE TABLE `audit_data_entry_versions` (
   KEY `index_audit_data_entry_versions_on_item_type_and_item_id` (`item_type`,`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `better_together_posts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `better_together_posts` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `bt_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `content_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -157,150 +146,6 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `who_id`,
  1 AS `who_name`*/;
 SET character_set_client = @saved_cs_client;
-DROP TABLE IF EXISTS `data_entries_corrected`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_corrected` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `flagged` int(11) NOT NULL,
-  KEY `data_entries_corrected_field_date_user_index` (`field_id`,`observation_date`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_corrected_duplicateless`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_corrected_duplicateless` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `flagged` int(11) NOT NULL,
-  KEY `data_entries_corrected_duplicateless_field_date_index` (`field_id`,`observation_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_corrected_final`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_corrected_final` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `flagged` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_corrected_final_iso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_corrected_final_iso` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `flagged` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_phase_1_errors`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_phase_1_errors` (
-  `id` int(11) DEFAULT NULL,
-  `ORIGINAL_VALUE` text,
-  `CORRECTED_VALUE` text,
-  `error_code` varchar(4) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `additional_info` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_phase_2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_phase_2` (
-  `id` bigint(20) DEFAULT NULL,
-  `ORIGINAL_VALUE` text,
-  `CORRECTED_VALUE` text,
-  `error_code` text,
-  `user_id` bigint(20) DEFAULT NULL,
-  `page_id` bigint(20) DEFAULT NULL,
-  `field_id` bigint(20) DEFAULT NULL,
-  `field_key` text,
-  `annotation_id` bigint(20) DEFAULT NULL,
-  `transcription_id` double DEFAULT NULL,
-  `post_process_id` bigint(20) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `additional_info` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_phase_2_errors`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_phase_2_errors` (
-  `id` int(11) DEFAULT NULL,
-  `ORIGINAL_VALUE` text,
-  `CORRECTED_VALUE` text,
-  `error_code` varchar(4) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  `additional_info` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `data_entries_raw`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `data_entries_raw` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `user_id` int(11) DEFAULT NULL,
-  `page_id` int(11) DEFAULT NULL,
-  `field_id` int(11) DEFAULT NULL,
-  `field_key` varchar(255) DEFAULT NULL,
-  `annotation_id` int(11) DEFAULT NULL,
-  `transcription_id` int(11) DEFAULT NULL,
-  `post_process_id` int(11) DEFAULT NULL,
-  `observation_date` datetime DEFAULT NULL,
-  KEY `data_entries_raw_annotation_index` (`annotation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `field_group_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -846,6 +691,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20230305154341'),
 ('20230316214752'),
 ('20250224161953'),
-('20250224180604');
+('20250224180604'),
+('20250224180941');
 
 
